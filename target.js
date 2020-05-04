@@ -3,7 +3,7 @@ function Target(index, otherTargets) {
   this.spawnDelay = index * 30;
   this.spawnCount = 0;
   this.pos;
-  this.r = 0;
+  this.radius = 0;
   this.endRadius = 40;
   this.visible = false;
   this.red = random(255);
@@ -26,16 +26,16 @@ function Target(index, otherTargets) {
       this.visible = true;
     }
     if (this.visible) {
-      this.r = lerp(this.r, this.endRadius, this.lerpIncrement);
+      this.radius = lerp(this.radius, this.endRadius, this.lerpIncrement);
 
-      if (this.r >= this.endRadius-1) {
+      if (this.radius >= this.endRadius-1) {
         console.log("I'm STILL IN HERE");
         this.endRadius = 0;
         this.lerpIncrement = 0.1;
         this.incrementing = false;
       }
 
-      if (!this.incrementing && this.r <= this.endRadius+2) {
+      if (!this.incrementing && this.radius <= this.endRadius+2) {
         this.respawn(false);
       }
     } else {
@@ -48,7 +48,7 @@ function Target(index, otherTargets) {
   this.display = function() {
     if (this.visible) {
       fill(this.red, this.green, this.blue);
-      ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
+      ellipse(this.pos.x, this.pos.y, this.radius*2, this.radius*2);
     }
 
   }
@@ -63,7 +63,7 @@ function Target(index, otherTargets) {
       this.hasRespawned = true;
     }
 
-    this.r = 0;
+    this.radius = 0;
     this.endRadius = 30;
     this.timeAlive = 0;
     this.lerpIncrement = 0.01;
@@ -84,7 +84,7 @@ function Target(index, otherTargets) {
   this.hasFoundTargetPosition = function(index) {
     let position = createVector(random(this.maximumRadius, width-this.maximumRadius), random(this.maximumRadius, height-this.maximumRadius));
     for (let i = 0; i < this.otherTargets.length; i++) {
-      if (dist(position.x, position.y, this.otherTargets[i].pos.x, this.otherTargets[i].pos.y) < this.otherTargets[i].r * 2) {
+      if (dist(position.x, position.y, this.otherTargets[i].pos.x, this.otherTargets[i].pos.y) < this.otherTargets[i].radius * 2) {
         return false;
       }
     }
