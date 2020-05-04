@@ -24,3 +24,14 @@ button {
   width: 500px;
 
 }
+
+select {
+    font-size: 20px;
+    width:500px;
+    height: 3em;
+    border:none;
+    padding:15px 32px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+}
